@@ -1,41 +1,43 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
+# --- Archivos Compilados (Binarios) ---
 *.o
 *.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
+*.exe
+*.dll
 *.so
 *.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
 *.out
 *.app
 
-# debug information files
-*.dwo
+# --- Carpetas de Compilación Comunes ---
+# Si usan CMake o compilan en carpetas separadas
+build/
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+
+# --- IDEs y Editores de Texto (Para que no se peleen sus configuraciones) ---
+# Visual Studio Code
+.vscode/
+
+# Visual Studio (El morado completo)
+.vs/
+*.user
+*.suo
+*.opensdf
+*.sdf
+
+# Mac OS (Basura del sistema)
+.DS_Store
+
+# Windows (Basura del sistema)
+Thumbs.db
+ehthumbs.db
+
+# --- Archivos de Salida de tu Proyecto ---
+# Si tu programa genera reportes o logs, no los subas
+*.log
+output.txt
+reporte_*.txt
