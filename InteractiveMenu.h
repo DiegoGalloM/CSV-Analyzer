@@ -200,9 +200,6 @@ public:
         case 2:
             filterData();
             break;
-        case 3:
-            advancedFiltering();
-            break;
         case 0:
             return;
         default:
@@ -295,7 +292,7 @@ public:
                 cout << " Your data insights await your next visit!" << endl;
                 break;
             default:
-                cout << "\n❌ Invalid option! Please try again." << endl;
+                cout << "\nInvalid option! Please try again." << endl;
                 pauseForUser();
             }
         } while (choice != 0);
@@ -336,7 +333,7 @@ private:
 
     void showColumnDetails()
     {
-        cout << "📋 COLUMN DETAILS" << endl;
+        cout << "COLUMN DETAILS" << endl;
         cout << string(60, '=') << endl;
 
         auto columnNames = analyzer.getColumnNames();
@@ -588,16 +585,9 @@ private:
         }
     }
 
-    void advancedFiltering()
-    {
-        cout << "🔬 ADVANCED FILTERING" << endl;
-        cout << "This feature allows multiple filters (coming soon)" << endl;
-        cout << "For now, use basic filtering multiple times." << endl;
-    }
-
     void displaySpecificColumns()
     {
-        cout << "📋 SELECT COLUMNS TO DISPLAY" << endl;
+        cout << "SELECT COLUMNS TO DISPLAY" << endl;
         auto columnNames = analyzer.getColumnNames();
 
         cout << "Available columns:" << endl;
