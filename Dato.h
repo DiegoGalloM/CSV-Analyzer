@@ -296,7 +296,7 @@ private:
         return std::chrono::year_month_day(std::chrono::year(1900), std::chrono::month(1), std::chrono::day(1));
     }
 
-    // Helper method to parse category from string
+    // Helper to parse
     Category parseCategory(const std::string &catStr)
     {
         std::string upper = catStr;
