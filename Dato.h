@@ -22,12 +22,13 @@ enum class DataType
     CATEGORY
 };
 
-struct NamedCategory {
+struct NamedCategory
+{
     string value;
 
     // Overload operators so this struct works inside variants and comparisons
-    bool operator==(const NamedCategory& other) const { return value == other.value; }
-    bool operator<(const NamedCategory& other) const { return value < other.value; }
+    bool operator==(const NamedCategory &other) const { return value == other.value; }
+    bool operator<(const NamedCategory &other) const { return value < other.value; }
 };
 
 using DataValue = variant<int, float, string, chrono::year_month_day, NamedCategory>;
@@ -51,8 +52,8 @@ public:
     Dato(const Dato &other)
         : columnNames(other.columnNames),
           columnTypes(other.columnTypes),
-          values(other.values){}
-    
+          values(other.values) {}
+
     void setValue(size_t index, const string &val)
     {
         if (index >= values.size())
@@ -82,10 +83,14 @@ public:
         catch (...)
         {
             // Handle conversion errors (defaults)
-            if (columnTypes[index] == DataType::INTEGER) values[index] = 0;
-            else if (columnTypes[index] == DataType::FLOAT) values[index] = 0.0f;
-            else if (columnTypes[index] == DataType::STRING) values[index] = "";
-            else if (columnTypes[index] == DataType::CATEGORY) values[index] = NamedCategory{"Unknown"};
+            if (columnTypes[index] == DataType::INTEGER)
+                values[index] = 0;
+            else if (columnTypes[index] == DataType::FLOAT)
+                values[index] = 0.0f;
+            else if (columnTypes[index] == DataType::STRING)
+                values[index] = "";
+            else if (columnTypes[index] == DataType::CATEGORY)
+                values[index] = NamedCategory{"Unknown"};
         }
     }
 
@@ -96,7 +101,6 @@ public:
             columnNames = other.columnNames;
             columnTypes = other.columnTypes;
             values = other.values;
-
         }
         return *this;
     }
@@ -161,7 +165,7 @@ public:
     }
 
     // Method to get value as string for display
-string getValueAsString(size_t index) const
+    string getValueAsString(size_t index) const
     {
         if (index >= values.size())
             return "";
