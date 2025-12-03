@@ -1,0 +1,11 @@
+ID,Company,Revenue,Employees,Industry,Founded,Location
+1,TechCorp,15000000.50,120,Technology,2010-03-15,Austin
+2,DataSoft,8750000.25,85,Software,2015-07-20,Seattle
+3,CloudTech,22000000.75,200,Cloud Computing,2008-11-05,San Francisco
+4,WebSolutions,5250000.00,45,Web Services,2018-01-12,Boston
+5,AIInnovate,31000000.90,350,Artificial Intelligence,2005-09-30,New York
+6,CyberSecure,12500000.40,95,Cybersecurity,2012-06-18,Denver
+7,MobileDev,9800000.65,75,Mobile Apps,2016-04-25,Miami
+8,GameStudio,7300000.80,60,Gaming,2014-12-10,Los Angeles
+9,FinTechPro,18500000.30,150,Financial Technology,2011-02-28,Chicago
+10,HealthData,14200000.55,110,Healthcare IT,2013-08-14,Houston

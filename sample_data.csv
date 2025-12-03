@@ -1,0 +1,11 @@
+ID,Name,Age,Grade,Salary,JoinDate,Department
+1,John Doe,25,A,50000.50,2023-01-15,Engineering
+2,Jane Smith,30,B,60000.75,2022-03-20,Marketing
+3,Bob Johnson,28,A,55000.25,2023-05-10,Engineering
+4,Alice Brown,35,C,45000.00,2021-08-05,HR
+5,Charlie Wilson,32,B,58000.80,2022-11-12,Marketing
+6,Diana Davis,27,A,52000.30,2023-02-28,Engineering
+7,Eve Miller,29,D,48000.60,2022-07-18,HR
+8,Frank Garcia,31,B,61000.40,2022-09-03,Engineering
+9,Grace Lee,26,A,49000.90,2023-04-22,Marketing
+10,Henry Taylor,33,C,47000.20,2021-12-01,HR
