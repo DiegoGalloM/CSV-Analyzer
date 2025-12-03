@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../include/InteractiveMenu.h"
-#include "../include/Asset.h" // VS Code lo buscará en la carpeta 'include' gracias al comando que te daré
+#include "InteractiveMenu.h"
+#include "Asset.h" // VS Code lo buscará en la carpeta 'include' gracias al comando que te daré
 
 using namespace std;
 using namespace std::chrono;
