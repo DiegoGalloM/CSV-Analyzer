@@ -361,12 +361,14 @@ public:
     }
 
     // Method to filter data based on criteria
+    // Method to filter data based on criteria
     vector<Dato> filterData(const string &columnName,
                             const string &operation,
                             const string &value)
     {
         vector<Dato> filtered;
 
+        // 1. Verify column existence
         auto it = find(columnNames.begin(), columnNames.end(), columnName);
         if (it == columnNames.end())
         {
@@ -375,58 +377,62 @@ public:
         }
 
         size_t columnIndex = distance(columnNames.begin(), it);
+        DataType type = columnTypes[columnIndex];
 
+        // 2. Pre-calculate comparison values (Optimization)
+        // We convert the user input 'value' ONCE, instead of every iteration.
+        double numCompareVal = 0.0;
+        long long dateCompareVal = 0;
+
+        if (type == DataType::INTEGER || type == DataType::FLOAT) {
+            try { numCompareVal = stod(value); } catch (...) { numCompareVal = 0.0; }
+        }
+        else if (type == DataType::DATE) {
+            // Utilizes the existing helper function in your code
+            dateCompareVal = dateToComparable(value);
+        }
+
+        // 3. Iterate through rows
         for (const auto &row : data)
         {
             bool matches = false;
 
-            if (columnTypes[columnIndex] == DataType::INTEGER ||
-                columnTypes[columnIndex] == DataType::FLOAT)
+            if (type == DataType::INTEGER || type == DataType::FLOAT)
             {
+                // --- NUMERIC COMPARISON ---
                 double cellValue = row.getNumericValue(columnIndex);
-                double compareValue = stod(value);
 
-                if (operation == "==" || operation == "=")
-                {
-                    matches = (std::abs(cellValue - compareValue) < 1e-9);
-                }
-                else if (operation == ">")
-                {
-                    matches = (cellValue > compareValue);
-                }
-                else if (operation == "<")
-                {
-                    matches = (cellValue < compareValue);
-                }
-                else if (operation == ">=")
-                {
-                    matches = (cellValue >= compareValue);
-                }
-                else if (operation == "<=")
-                {
-                    matches = (cellValue <= compareValue);
-                }
-                else if (operation == "!=")
-                {
-                    matches = (std::abs(cellValue - compareValue) >= 1e-9);
-                }
+                if (operation == "==" || operation == "=") matches = (std::abs(cellValue - numCompareVal) < 1e-9);
+                else if (operation == ">")  matches = (cellValue > numCompareVal);
+                else if (operation == "<")  matches = (cellValue < numCompareVal);
+                else if (operation == ">=") matches = (cellValue >= numCompareVal);
+                else if (operation == "<=") matches = (cellValue <= numCompareVal);
+                else if (operation == "!=") matches = (std::abs(cellValue - numCompareVal) >= 1e-9);
+            }
+            else if (type == DataType::DATE)
+            {
+                // --- DATE COMPARISON (New Logic) ---
+                // Convert the cell value to a comparable integer (YYYYMMDD)
+                long long cellDate = dateToComparable(row.getValueAsString(columnIndex));
+
+                if (operation == "==" || operation == "=") matches = (cellDate == dateCompareVal);
+                else if (operation == "!=") matches = (cellDate != dateCompareVal);
+                else if (operation == ">")  matches = (cellDate > dateCompareVal);
+                else if (operation == "<")  matches = (cellDate < dateCompareVal);
+                else if (operation == ">=") matches = (cellDate >= dateCompareVal);
+                else if (operation == "<=") matches = (cellDate <= dateCompareVal);
             }
             else
             {
+                // --- STRING / CATEGORY COMPARISON ---
                 std::string cellValue = row.getValueAsString(columnIndex);
 
-                if (operation == "==" || operation == "=")
-                {
-                    matches = (cellValue == value);
-                }
-                else if (operation == "!=")
-                {
-                    matches = (cellValue != value);
-                }
-                else if (operation == "contains")
-                {
-                    matches = (cellValue.find(value) != string::npos);
-                }
+                if (operation == "==" || operation == "=") matches = (cellValue == value);
+                else if (operation == "!=") matches = (cellValue != value);
+                else if (operation == "contains") matches = (cellValue.find(value) != string::npos);
+                // Added basic alphabetical support
+                else if (operation == ">")  matches = (cellValue > value);
+                else if (operation == "<")  matches = (cellValue < value);
             }
 
             if (matches)
@@ -550,6 +556,27 @@ private:
     {
         // Simple date pattern check (YYYY-MM-DD)
         return std::regex_match(str, std::regex(R"(\d{4}-\d{2}-\d{2})"));
+    }
+    // Helper to convert date strings to a comparable integer (YYYYMMDD)
+    long long dateToComparable(string dateStr)
+    {
+        string cleanDate;
+        for (char c : dateStr) if (isdigit(c)) cleanDate += c;
+
+        // If format is DDMMAAAA (e.g. 31012023), convert to AAAAMMDD (20230131)
+        if (cleanDate.length() == 8) {
+            // Check if it looks like ISO (start with 19 or 20) or DD/MM
+            // Heuristic: If first 4 digits are < 1900, it's likely DDMMYYYY
+            int firstPart = stoi(cleanDate.substr(0, 4));
+            if (firstPart < 1900) { 
+                string day = cleanDate.substr(0, 2);
+                string month = cleanDate.substr(2, 2);
+                string year = cleanDate.substr(4, 4);
+                return stoll(year + month + day);
+            }
+        }
+        // If it's already YYYYMMDD or unknown, return as is
+        try { return stoll(cleanDate); } catch (...) { return 0; }
     }
 
     bool mightBeCategory(const vector<vector<string>> &rawData, size_t columnIndex)

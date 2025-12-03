@@ -1,6 +1,7 @@
 #include "Analisis.h"
 #include <iostream>
 #include <filesystem>
+#include <vector>
 
 class InteractiveMenu
 {
@@ -506,7 +507,7 @@ private:
                 cout << endl;
             }
         }
-        else if (results.size() > 10)
+        else if (results.size() > 1000)
         {
             cout << "Too many results to display. Showing first 10:" << endl;
             for (int i = 0; i < 10; ++i)
@@ -584,6 +585,8 @@ private:
             cout << "Too many results to display. Use 'Export & Display Options' to see more." << endl;
         }
     }
+
+    // Función para filtrar datos soportando todos los operadore
 
     void displaySpecificColumns()
     {
