@@ -41,9 +41,35 @@ public:
             filename = filename.substr(1, filename.length() - 2);
         }
 
+        // If user provided only a bare filename (no path), prefer the `CSV/` folder
+        try {
+            std::filesystem::path userPath(filename);
+            if (!userPath.is_absolute() && filename.find_first_of("/\\") == string::npos) {
+                std::filesystem::path csvDir = std::filesystem::path("CSV");
+                std::filesystem::path candidate = csvDir / userPath;
+                if (std::filesystem::exists(candidate)) {
+                    filename = candidate.string();
+                } else {
+                    // If CSV folder exists but file not found there, still try CSV/file (keeps UX)
+                    if (std::filesystem::exists(csvDir)) {
+                        filename = candidate.string();
+                    }
+                }
+            }
+        } catch (...) {
+            // Ignore filesystem errors and use the raw filename
+        }
+
         cout << "\nAttempting to load: " << filename << endl;
 
-        if (analyzer.loadCSV(filename))
+        // Call loadCSV with a progress callback that draws a small ASCII progress bar
+        if (analyzer.loadCSV(filename, [&](int percent){
+            const int width = 40;
+            int filled = (percent * width) / 100;
+            std::cout << "\r[" << std::string(filled, '#') << std::string(width - filled, ' ') << "] ";
+            std::cout << std::setw(3) << percent << "%" << std::flush;
+            if (percent == 100) std::cout << std::endl;
+        }))
         {
             dataLoaded = true;
             currentFile = filename;
@@ -58,26 +84,29 @@ public:
             cout << "\n Failed to load file. Please check the filename and try again." << endl;
 
             // Show available CSV files in current directory
-            cout << "\n Available CSV files in current directory:" << endl;
+            // Prefer listing CSV files inside the `CSV` folder, fallback to current dir
+            cout << "\n Available CSV files:" << endl;
             try
             {
                 bool foundCSV = false;
-                for (const auto &entry : std::filesystem::directory_iterator("."))
+                std::filesystem::path csvDir = std::filesystem::path("CSV");
+                std::filesystem::path listDir = std::filesystem::exists(csvDir) ? csvDir : std::filesystem::path(".");
+                for (const auto &entry : std::filesystem::directory_iterator(listDir))
                 {
                     if (entry.is_regular_file() && entry.path().extension() == ".csv")
                     {
-                        cout << "   • " << entry.path().filename().string() << endl;
+                        cout << "   - " << entry.path().filename().string() << endl;
                         foundCSV = true;
                     }
                 }
                 if (!foundCSV)
                 {
-                    cout << "   No CSV files found in current directory." << endl;
+                    cout << "   No CSV files found in " << listDir.string() << "." << endl;
                 }
             }
             catch (...)
             {
-                cout << "   Could not scan directory." << endl;
+                cout << "   Could not scan directory for CSV files." << endl;
             }
         }
         pauseForUser();
@@ -776,8 +805,30 @@ private:
         if (filename.find(".txt") == string::npos) {
             filename += ".txt";
         }
+        // Ensure the report path is inside `Reports/` unless user provided an absolute path.
+        std::filesystem::path outPath(filename);
+        if (!outPath.is_absolute() && filename.find_first_of("/\\") == string::npos) {
+            std::filesystem::path reportsDir = std::filesystem::path("Reports");
+            std::error_code ec;
+            std::filesystem::create_directories(reportsDir, ec);
+            outPath = reportsDir / outPath;
+        } else {
+            // Ensure parent exists for absolute paths
+            if (outPath.has_parent_path()) {
+                std::error_code ec;
+                std::filesystem::create_directories(outPath.parent_path(), ec);
+            }
+        }
 
-        analyzer.exportReportTXT(filename);
+        // Attempt to export; on failure report error but do not silently write outside Reports/
+        try {
+            analyzer.exportReportTXT(outPath.string());
+            cout << "\nReporte guardado en: " << outPath.string() << endl;
+        } catch (const std::exception &e) {
+            cout << "\nError al generar el reporte: " << e.what() << endl;
+        } catch (...) {
+            cout << "\nError desconocido al generar el reporte." << endl;
+        }
         
         cout << "\nPresione Enter para continuar...";
         cin.get();

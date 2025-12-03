@@ -1,0 +1,48 @@
+===============================================
+       REPORTE DE ANALISIS DE DATOS            
+===============================================
+Archivo Analizado: CSV\companies.csv
+Total Registros:   10
+Total Columnas:    7
+===============================================
+
+--- ESTRUCTURA DE COLUMNAS ---
+NOMBRE                   TIPO           
+----------------------------------------
+ID                       Integer        
+Company                  Category       
+Revenue                  Float          
+Employees                Integer        
+Industry                 Category       
+Founded                  Date           
+Location                 Category       
+
+--- RESUMEN ESTADISTICO (Numerico) ---
+* Columna: ID
+  - Promedio: 5.5
+  - Minimo:   1
+  - Maximo:   10
+--------------------------------
+* Columna: Revenue
+  - Promedio: 1.443e+07
+  - Minimo:   5.25e+06
+  - Maximo:   3.1e+07
+--------------------------------
+* Columna: Employees
+  - Promedio: 129
+  - Minimo:   45
+  - Maximo:   350
+--------------------------------
+
+--- VISTA PREVIA (Primeras 10 filas) ---
+ID,Company,Revenue,Employees,Industry,Founded,Location
+1,TechCorp,15000000.00,120,Technology,2010-03-15,Austin
+2,DataSoft,8750000.00,85,Software,2015-07-20,Seattle
+3,CloudTech,22000000.00,200,Cloud Computing,2008-11-05,San Francisco
+4,WebSolutions,5250000.00,45,Web Services,2018-01-12,Boston
+5,AIInnovate,31000000.00,350,Artificial Intelligence,2005-09-30,New York
+6,CyberSecure,12500000.00,95,Cybersecurity,2012-06-18,Denver
+7,MobileDev,9800001.00,75,Mobile Apps,2016-04-25,Miami
+8,GameStudio,7300001.00,60,Gaming,2014-12-10,Los Angeles
+9,FinTechPro,18500000.00,150,Financial Technology,2011-02-28,Chicago
+10,HealthData,14200001.00,110,Healthcare IT,2013-08-14,Houston

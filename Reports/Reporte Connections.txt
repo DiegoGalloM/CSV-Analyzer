@@ -1,0 +1,41 @@
+===============================================
+       REPORTE DE ANALISIS DE DATOS            
+===============================================
+Archivo Analizado: CSV\connections.csv
+Total Registros:   292
+Total Columnas:    5
+===============================================
+
+--- ESTRUCTURA DE COLUMNAS ---
+NOMBRE                   TIPO           
+----------------------------------------
+CityA                    String         
+CityB                    String         
+DistanceKm               Integer        
+TollCost                 Integer        
+RoadType                 Category       
+
+--- RESUMEN ESTADISTICO (Numerico) ---
+* Columna: DistanceKm
+  - Promedio: 189.027
+  - Minimo:   8
+  - Maximo:   920
+--------------------------------
+* Columna: TollCost
+  - Promedio: 69.863
+  - Minimo:   0
+  - Maximo:   1200
+--------------------------------
+
+--- VISTA PREVIA (Primeras 10 filas) ---
+CityA,CityB,DistanceKm,TollCost,RoadType
+CDMX,Puebla,127,85,Highway
+CDMX,Toluca,65,45,Highway
+CDMX,Cuernavaca,85,65,Highway
+CDMX,Queretaro,213,180,Highway
+CDMX,Pachuca,91,60,Highway
+CDMX,Tlaxcala,118,0,Highway
+CDMX,Tehuacan,252,200,Federal
+CDMX,Cuautla,125,0,Federal
+CDMX,Acapulco,390,320,Highway
+Guadalajara,Leon,210,170,Highway

@@ -11,6 +11,9 @@
 #include <cmath>
 #include <set>
 #include <regex>
+#include <functional>
+#include <filesystem>
+#include <iomanip>
 
 using namespace std;
 
@@ -27,10 +30,16 @@ public:
     CSVAnalyzer(char delim = ',') : delimiter(delim) {}
 
     // Method to load CSV file and automatically detect data types
-    bool loadCSV(const string &filepath)
+    // Overload without progress callback kept for compatibility
+    bool loadCSV(const string &filepath) {
+        return loadCSV(filepath, nullptr);
+    }
+
+    // New: loadCSV with an optional progress callback (progress in percent 0..100)
+    bool loadCSV(const string &filepath, std::function<void(int)> progressCallback)
     {
         filename = filepath;
-        ifstream file(filepath);
+        std::ifstream file(filepath);
 
         if (!file.is_open())
         {
@@ -46,7 +55,18 @@ public:
         bool isFirstLine = true;
         vector<vector<string>> rawData;
 
-        // Read all data first
+        // Attempt to get total file size for progress estimation
+        std::uintmax_t totalBytes = 0;
+        try {
+            totalBytes = std::filesystem::file_size(filepath);
+        } catch (...) {
+            totalBytes = 0;
+        }
+
+        std::uintmax_t bytesRead = 0;
+        int lastReported = -1;
+
+        // Read all data first, reporting progress if callback provided
         while (std::getline(file, line))
         {
             vector<string> row = parseLine(line);
@@ -63,18 +83,48 @@ public:
                     rawData.push_back(row);
                 }
             }
+
+            if (progressCallback && totalBytes > 0)
+            {
+                // Use cumulative bytes of the lines we've processed to estimate progress.
+                // This is more consistent across platforms than relying on tellg() after getline.
+                bytesRead += static_cast<std::uintmax_t>(line.size()) + 1; // +1 for newline
+                int percent = static_cast<int>((double)bytesRead * 100.0 / (double)totalBytes);
+                // Reserve 100% for final completion to avoid duplicate "finished" bar
+                if (percent > 99) percent = 99;
+                if (percent != lastReported)
+                {
+                    lastReported = percent;
+                    try { progressCallback(percent); } catch (...) {}
+                }
+            }
         }
         file.close();
 
         if (rawData.empty())
         {
             std::cerr << "Error: No data rows found in CSV" << std::endl;
+            if (progressCallback) progressCallback(100);
             return false;
         }
 
         detectDataTypes(rawData);
 
-        convertRawDataToDato(rawData);
+        // Compute average bytes per row to estimate conversion work
+        std::uintmax_t avgRowBytes = 0;
+        if (rawData.size() > 0 && totalBytes > 0) {
+            avgRowBytes = totalBytes / rawData.size();
+            if (avgRowBytes == 0) avgRowBytes = 1;
+        }
+
+        // Total work = reading bytes + estimated conversion bytes
+        std::uintmax_t totalWork = totalBytes + avgRowBytes * rawData.size();
+
+        // Convert raw data to Dato while reporting unified progress (0..100)
+        convertRawDataToDato(rawData, progressCallback, bytesRead, totalWork, avgRowBytes);
+
+        // Ensure the progress UI reaches 100% before printing completion message
+        if (progressCallback) progressCallback(100);
 
         std::cout << "Successfully loaded " << data.size() << " rows with "
                   << columnNames.size() << " columns from " << filepath << std::endl;
@@ -603,10 +653,15 @@ private:
         return uniqueValues.size() <= max(10, (int)(rawData.size() * 0.1));
     }
 
-    void convertRawDataToDato(const vector<vector<string>> &rawData)
+    void convertRawDataToDato(const vector<vector<string>> &rawData,
+                              std::function<void(int)> progressCallback,
+                              std::uintmax_t &bytesRead,
+                              std::uintmax_t totalWork,
+                              std::uintmax_t avgRowBytes)
     {
-        for (const auto &row : rawData)
+        for (size_t idx = 0; idx < rawData.size(); ++idx)
         {
+            const auto &row = rawData[idx];
             Dato dato(columnNames, columnTypes);
 
             for (size_t i = 0; i < row.size() && i < columnNames.size(); ++i)
@@ -623,6 +678,15 @@ private:
             }
 
             data.push_back(dato);
+
+            // Update unified progress: add estimated bytes for this row conversion
+            if (progressCallback && totalWork > 0)
+            {
+                bytesRead += avgRowBytes;
+                int percent = static_cast<int>((double)bytesRead * 100.0 / (double)totalWork);
+                if (percent > 99) percent = 99; // leave 100 for finalization
+                try { progressCallback(percent); } catch (...) {}
+            }
         }
     }
 

@@ -1,0 +1,293 @@
+CityA,CityB,DistanceKm,TollCost,RoadType
+CDMX,Puebla,127,85,Highway
+CDMX,Toluca,65,45,Highway
+CDMX,Cuernavaca,85,65,Highway
+CDMX,Queretaro,213,180,Highway
+CDMX,Pachuca,91,60,Highway
+CDMX,Tlaxcala,118,0,Highway
+CDMX,Tehuacan,252,200,Federal
+CDMX,Cuautla,125,0,Federal
+CDMX,Acapulco,390,320,Highway
+Guadalajara,Leon,210,170,Highway
+Guadalajara,Aguascalientes,225,180,Highway
+Guadalajara,Colima,185,150,Highway
+Guadalajara,Tepic,225,190,Highway
+Guadalajara,Puerto Vallarta,334,320,Highway
+Guadalajara,Morelia,298,250,Federal
+Guadalajara,Manzanillo,285,240,Highway
+Guadalajara,Queretaro,385,310,Highway
+Guadalajara,Guanajuato,280,0,Federal
+Guadalajara,Zacatecas,310,0,Federal
+Guadalajara,CDMX,550,850,Highway
+Monterrey,Saltillo,85,120,Highway
+Monterrey,Reynosa,225,180,Highway
+Monterrey,Nuevo Laredo,228,200,Highway
+Monterrey,Ciudad Victoria,305,250,Federal
+Monterrey,San Luis Potosi,545,450,Highway
+Monterrey,Monclova,215,180,Federal
+Monterrey,Torreon,480,400,Highway
+Monterrey,Matamoros,313,0,Federal
+Monterrey,Guadalajara,745,950,Highway
+Monterrey,CDMX,920,1200,Highway
+Saltillo,Torreon,245,200,Highway
+Saltillo,Zacatecas,310,280,Federal
+Saltillo,Monclova,198,165,Federal
+Saltillo,Durango,455,0,Federal
+Torreon,Durango,227,180,Federal
+Torreon,Gomez Palacio,12,0,Federal
+Torreon,Mazatlan,547,0,Federal
+Torreon,Zacatecas,285,0,Federal
+Durango,Mazatlan,320,280,Highway
+Durango,Zacatecas,192,150,Federal
+Durango,Culiacan,547,0,Federal
+Durango,Fresnillo,258,0,Federal
+Puebla,Tlaxcala,35,0,Federal
+Puebla,Orizaba,125,95,Highway
+Puebla,Veracruz,252,200,Highway
+Puebla,Tehuacan,115,0,Federal
+Puebla,Oaxaca,335,0,Federal
+Puebla,Cordoba,147,0,Federal
+Queretaro,San Luis Potosi,195,150,Highway
+Queretaro,Celaya,58,40,Highway
+Queretaro,Leon,150,120,Highway
+Queretaro,Guanajuato,117,0,Federal
+Queretaro,Irapuato,108,0,Federal
+Queretaro,Morelia,228,190,Highway
+Queretaro,Pachuca,167,0,Federal
+Leon,Aguascalientes,125,95,Highway
+Leon,Guanajuato,56,0,Federal
+Leon,Irapuato,42,0,Federal
+Leon,Salamanca,70,0,Federal
+Leon,Celaya,92,0,Federal
+Leon,San Luis Potosi,270,220,Highway
+San Luis Potosi,Zacatecas,199,160,Federal
+San Luis Potosi,Aguascalientes,140,110,Highway
+San Luis Potosi,Ciudad Valles,228,0,Federal
+San Luis Potosi,Tampico,473,0,Federal
+Aguascalientes,Zacatecas,125,95,Highway
+Aguascalientes,Guadalajara,225,180,Highway
+Tijuana,Ensenada,109,90,Highway
+Tijuana,Mexicali,188,150,Highway
+Mexicali,Tijuana,188,150,Highway
+Hermosillo,Guaymas,132,95,Highway
+Hermosillo,Nogales,280,220,Highway
+Hermosillo,Ciudad Obregon,210,170,Federal
+Hermosillo,Agua Prieta,285,0,Federal
+Chihuahua,Ciudad Juarez,375,300,Highway
+Chihuahua,Delicias,90,0,Federal
+Chihuahua,Cuauhtemoc,103,0,Federal
+Chihuahua,Durango,632,0,Federal
+Ciudad Juarez,Chihuahua,375,300,Highway
+Veracruz,Xalapa,105,80,Highway
+Veracruz,Cordoba,120,95,Federal
+Veracruz,Cardenas,360,300,Highway
+Veracruz,Puebla,252,200,Highway
+Veracruz,Coatzacoalcos,295,0,Federal
+Cancun,Playa del Carmen,68,0,Highway
+Cancun,Tulum,130,0,Highway
+Cancun,Valladolid,158,0,Federal
+Cancun,Merida,318,0,Highway
+Merida,Campeche,170,0,Federal
+Merida,Progreso,36,0,Federal
+Merida,Valladolid,160,0,Federal
+Merida,Cancun,318,0,Highway
+Morelia,Uruapan,120,0,Federal
+Morelia,Lazaro Cardenas,345,280,Federal
+Morelia,Zamora,115,0,Federal
+Morelia,Guadalajara,298,250,Federal
+Morelia,Queretaro,228,190,Highway
+Culiacan,Mazatlan,212,170,Highway
+Culiacan,Los Mochis,198,150,Highway
+Culiacan,Guamuchil,115,0,Federal
+Culiacan,Durango,547,0,Federal
+Toluca,CDMX,65,45,Highway
+Cuernavaca,CDMX,85,65,Highway
+Cuernavaca,Cuautla,48,0,Federal
+Cuernavaca,Jiutepec,8,0,Federal
+Cuernavaca,Taxco,85,0,Federal
+Cuernavaca,Acapulco,305,250,Highway
+Acapulco,Chilpancingo,132,95,Highway
+Acapulco,Zihuatanejo,240,0,Federal
+Acapulco,Ixtapa,245,0,Federal
+Acapulco,Cuernavaca,305,250,Highway
+Mazatlan,Tepic,285,230,Highway
+Mazatlan,Culiacan,212,170,Highway
+Mazatlan,Durango,320,280,Highway
+Villahermosa,Campeche,445,0,Federal
+Villahermosa,Palenque,145,0,Federal
+Villahermosa,Cardenas,55,0,Federal
+Villahermosa,Comalcalco,58,0,Federal
+Villahermosa,Frontera,95,0,Federal
+Villahermosa,Tuxtla Gutierrez,295,0,Federal
+Tuxtla Gutierrez,San Cristobal,85,0,Federal
+Tuxtla Gutierrez,Tapachula,425,0,Federal
+Tuxtla Gutierrez,Villahermosa,295,0,Federal
+Tuxtla Gutierrez,Oaxaca,285,0,Federal
+Tuxtla Gutierrez,Arriaga,165,0,Federal
+Oaxaca,Tuxtla Gutierrez,285,0,Federal
+Oaxaca,Puerto Escondido,245,0,Federal
+Oaxaca,Huatulco,265,0,Federal
+Oaxaca,Puebla,335,0,Federal
+Oaxaca,Tehuacan,220,0,Federal
+Tampico,Ciudad Victoria,235,190,Federal
+Tampico,Tuxpan,190,150,Federal
+Tampico,Altamira,15,0,Federal
+Tampico,Poza Rica,242,0,Federal
+Tampico,San Luis Potosi,473,0,Federal
+Reynosa,Matamoros,88,0,Federal
+Reynosa,Nuevo Laredo,226,0,Federal
+Reynosa,Monterrey,225,180,Highway
+Ciudad Victoria,Monterrey,305,250,Federal
+Ciudad Victoria,Tampico,235,190,Federal
+Ciudad Victoria,Ciudad Mante,125,0,Federal
+Monclova,Piedras Negras,185,150,Federal
+Monclova,Saltillo,198,165,Federal
+Monclova,Monterrey,215,180,Federal
+Piedras Negras,Monclova,185,150,Federal
+Piedras Negras,Nuevo Laredo,240,0,Federal
+Coatzacoalcos,Minatitlan,18,0,Federal
+Coatzacoalcos,Veracruz,295,0,Federal
+Coatzacoalcos,Villahermosa,215,0,Federal
+Ciudad Obregon,Hermosillo,210,170,Federal
+Ciudad Obregon,Guaymas,125,0,Federal
+Ciudad Obregon,Navojoa,112,0,Federal
+Nogales,Hermosillo,280,220,Highway
+Nogales,Agua Prieta,320,0,Federal
+Ensenada,Tijuana,109,90,Highway
+Salamanca,Leon,70,0,Federal
+Salamanca,Irapuato,28,0,Federal
+Salamanca,Celaya,63,0,Federal
+Uruapan,Morelia,120,0,Federal
+Uruapan,Apatzingan,105,0,Federal
+Uruapan,Lazaro Cardenas,225,0,Federal
+Puerto Vallarta,Tepic,167,130,Highway
+Puerto Vallarta,Guadalajara,334,320,Highway
+Manzanillo,Colima,98,75,Highway
+Manzanillo,Guadalajara,285,240,Highway
+Tulum,Cancun,130,0,Highway
+Tulum,Playa del Carmen,62,0,Federal
+Cozumel,Playa del Carmen,45,0,Ferry
+Valladolid,Cancun,158,0,Federal
+Valladolid,Merida,160,0,Federal
+Cordoba,Veracruz,120,95,Federal
+Cordoba,Orizaba,22,0,Federal
+Cordoba,Puebla,147,0,Federal
+Orizaba,Cordoba,22,0,Federal
+Orizaba,Puebla,125,95,Highway
+Chilpancingo,Acapulco,132,95,Highway
+Chilpancingo,Taxco,95,0,Federal
+Taxco,Cuernavaca,85,0,Federal
+Taxco,Chilpancingo,95,0,Federal
+Guaymas,Hermosillo,132,95,Highway
+Guaymas,Ciudad Obregon,125,0,Federal
+Lazaro Cardenas,Morelia,345,280,Federal
+Lazaro Cardenas,Zihuatanejo,285,0,Federal
+Lazaro Cardenas,Uruapan,225,0,Federal
+Zihuatanejo,Ixtapa,8,0,Federal
+Zihuatanejo,Acapulco,240,0,Federal
+Zihuatanejo,Lazaro Cardenas,285,0,Federal
+Ixtapa,Zihuatanejo,8,0,Federal
+Ixtapa,Acapulco,245,0,Federal
+Poza Rica,Tuxpan,52,0,Federal
+Poza Rica,Tampico,242,0,Federal
+Poza Rica,Pachuca,195,0,Federal
+Tuxpan,Poza Rica,52,0,Federal
+Tuxpan,Tampico,190,150,Federal
+San Cristobal,Tuxtla Gutierrez,85,0,Federal
+San Cristobal,Palenque,203,0,Federal
+Tapachula,Tuxtla Gutierrez,425,0,Federal
+Tapachula,Arriaga,285,0,Federal
+Palenque,Villahermosa,145,0,Federal
+Palenque,San Cristobal,203,0,Federal
+Progreso,Merida,36,0,Federal
+Cabo San Lucas,La Paz,220,0,Highway
+Cabo San Lucas,San Jose del Cabo,42,0,Highway
+San Jose del Cabo,La Paz,180,0,Highway
+San Jose del Cabo,Cabo San Lucas,42,0,Highway
+Cuautla,Cuernavaca,48,0,Federal
+Cuautla,CDMX,125,0,Federal
+Jiutepec,Cuernavaca,8,0,Federal
+Tehuacan,Puebla,115,0,Federal
+Tehuacan,Oaxaca,220,0,Federal
+Zamora,Morelia,115,0,Federal
+Zamora,Uruapan,95,0,Federal
+Apatzingan,Uruapan,105,0,Federal
+Guamuchil,Culiacan,115,0,Federal
+Guamuchil,Los Mochis,95,0,Federal
+Navojoa,Ciudad Obregon,112,0,Federal
+Navojoa,Los Mochis,235,0,Federal
+Agua Prieta,Hermosillo,285,0,Federal
+Agua Prieta,Nogales,320,0,Federal
+Ciudad del Carmen,Campeche,185,0,Federal
+Ciudad del Carmen,Villahermosa,280,0,Federal
+Minatitlan,Coatzacoalcos,18,0,Federal
+Huatulco,Oaxaca,265,0,Federal
+Huatulco,Puerto Escondido,115,0,Federal
+Puerto Escondido,Oaxaca,245,0,Federal
+Puerto Escondido,Huatulco,115,0,Federal
+Arriaga,Tuxtla Gutierrez,165,0,Federal
+Arriaga,Tapachula,285,0,Federal
+Cardenas,Villahermosa,55,0,Federal
+Cardenas,Comalcalco,35,0,Federal
+Comalcalco,Villahermosa,58,0,Federal
+Comalcalco,Cardenas,35,0,Federal
+Frontera,Villahermosa,95,0,Federal
+Escarcega,Campeche,285,0,Federal
+Escarcega,Ciudad del Carmen,95,0,Federal
+Delicias,Chihuahua,90,0,Federal
+Delicias,Cuauhtemoc,85,0,Federal
+Cuauhtemoc,Chihuahua,103,0,Federal
+Cuauhtemoc,Delicias,85,0,Federal
+Gomez Palacio,Torreon,12,0,Federal
+Gomez Palacio,Durango,215,0,Federal
+Ciudad Mante,Ciudad Victoria,125,0,Federal
+Ciudad Mante,Ciudad Valles,125,0,Federal
+Ciudad Mante,Tampico,185,0,Federal
+Altamira,Tampico,15,0,Federal
+Ciudad Valles,San Luis Potosi,228,0,Federal
+Ciudad Valles,Ciudad Mante,125,0,Federal
+Fresnillo,Zacatecas,65,0,Federal
+Fresnillo,Durango,258,0,Federal
+Irapuato,Leon,42,0,Federal
+Irapuato,Salamanca,28,0,Federal
+Irapuato,Celaya,35,0,Federal
+Irapuato,Queretaro,108,0,Federal
+Celaya,Irapuato,35,0,Federal
+Celaya,Queretaro,58,40,Highway
+Celaya,Leon,92,0,Federal
+Celaya,Salamanca,63,0,Federal
+Guanajuato,Leon,56,0,Federal
+Guanajuato,Queretaro,117,0,Federal
+Tlaxcala,CDMX,118,0,Highway
+Tlaxcala,Puebla,35,0,Federal
+Pachuca,CDMX,91,60,Highway
+Pachuca,Queretaro,167,0,Federal
+Pachuca,Poza Rica,195,0,Federal
+Xalapa,Veracruz,105,80,Highway
+Tepic,Mazatlan,285,230,Highway
+Tepic,Puerto Vallarta,167,130,Highway
+Tepic,Guadalajara,225,190,Highway
+Colima,Manzanillo,98,75,Highway
+Colima,Guadalajara,185,150,Highway
+Zacatecas,Aguascalientes,125,95,Highway
+Zacatecas,San Luis Potosi,199,160,Federal
+Zacatecas,Durango,192,150,Federal
+Zacatecas,Fresnillo,65,0,Federal
+Campeche,Merida,170,0,Federal
+Campeche,Ciudad del Carmen,185,0,Federal
+Campeche,Villahermosa,445,0,Federal
+Campeche,Escarcega,285,0,Federal
+Chetumal,Cancun,378,0,Highway
+Playa del Carmen,Cancun,68,0,Highway
+Playa del Carmen,Tulum,62,0,Federal
+Playa del Carmen,Cozumel,45,0,Ferry
+La Paz,Cabo San Lucas,220,0,Highway
+La Paz,San Jose del Cabo,180,0,Highway
+Los Mochis,Culiacan,198,150,Highway
+Los Mochis,Guamuchil,95,0,Federal
+Los Mochis,Navojoa,235,0,Federal
+Nuevo Laredo,Monterrey,228,200,Highway
+Nuevo Laredo,Reynosa,226,0,Federal
+Nuevo Laredo,Piedras Negras,240,0,Federal
+Matamoros,Reynosa,88,0,Federal
+Matamoros,Monterrey,313,0,Federal
