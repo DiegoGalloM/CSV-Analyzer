@@ -154,6 +154,154 @@ public:
         }
     }
 
+    // =========================================================
+    // NUEVAS FUNCIONES PARA EL PROYECTO FINAL
+    // =========================================================
+
+    // OPCIÓN 6: HISTOGRAMA ASCII
+    void plotHistogram(const string& columnName, int bins = 10)
+    {
+        // 1. Validar existencia de columna
+        auto it = find(columnNames.begin(), columnNames.end(), columnName);
+        if (it == columnNames.end()) {
+            cout << "Error: Columna '" << columnName << "' no encontrada.\n";
+            return;
+        }
+        size_t colIdx = distance(columnNames.begin(), it);
+
+        // 2. Validar que sea numérico (no podemos hacer histograma de texto)
+        if (columnTypes[colIdx] != DataType::INTEGER && columnTypes[colIdx] != DataType::FLOAT) {
+            cout << "Error: El histograma solo funciona con columnas numericas (Integer/Float).\n";
+            return;
+        }
+
+        // 3. Recolectar datos
+        vector<double> values;
+        for (const auto& row : data) {
+            if (row.isNumericColumn(colIdx)) {
+                values.push_back(row.getNumericValue(colIdx));
+            }
+        }
+
+        if (values.empty()) {
+            cout << "No hay datos validos para graficar.\n";
+            return;
+        }
+
+        // 4. Calcular Min, Max y el paso (step)
+        auto [minIt, maxIt] = minmax_element(values.begin(), values.end());
+        double minVal = *minIt;
+        double maxVal = *maxIt;
+
+        if (minVal == maxVal) {
+            cout << "Todos los valores son iguales (" << minVal << "). No se puede graficar.\n";
+            return;
+        }
+
+        double range = maxVal - minVal;
+        double step = range / bins;
+        vector<int> binCounts(bins, 0);
+
+        // 5. Llenar las "cubetas" (bins)
+        for (double v : values) {
+            int bucket = min((int)((v - minVal) / step), bins - 1);
+            if (bucket >= 0 && bucket < bins) {
+                binCounts[bucket]++;
+            }
+        }
+
+        // 6. Dibujar en consola
+        cout << "\n===== HISTOGRAMA: " << columnName << " =====" << endl;
+        cout << "Rango: [" << minVal << " a " << maxVal << "]\n" << endl;
+
+        int maxCount = *max_element(binCounts.begin(), binCounts.end());
+        
+        for (int i = 0; i < bins; ++i) {
+            double binStart = minVal + (i * step);
+            double binEnd = minVal + ((i + 1) * step);
+            
+            // Etiqueta del rango
+            cout << fixed << setprecision(1) << setw(8) << binStart << " - " << setw(8) << binEnd << " | ";
+            
+            // Barra ASCII (normalizada a 40 caracteres de largo)
+            int barLength = (maxCount > 0) ? (binCounts[i] * 40 / maxCount) : 0;
+            cout << string(barLength, '*') << " (" << binCounts[i] << ")\n";
+        }
+        cout << string(60, '-') << endl;
+    }
+
+    // OPCIÓN EXTRA: EXPORTAR REPORTE TXT
+    void exportReportTXT(const string& filename) 
+    {
+        ofstream file(filename);
+        if (!file.is_open()) {
+            cout << "Error: No se pudo crear el archivo " << filename << endl;
+            return;
+        }
+
+        // Encabezado del Reporte
+        file << "===============================================\n";
+        file << "       REPORTE DE ANALISIS DE DATOS            \n";
+        file << "===============================================\n";
+        file << "Archivo Analizado: " << this->filename << "\n";
+        file << "Total Registros:   " << data.size() << "\n";
+        file << "Total Columnas:    " << columnNames.size() << "\n";
+        file << "===============================================\n\n";
+
+        // Sección 1: Estructura
+        file << "--- ESTRUCTURA DE COLUMNAS ---\n";
+        file << left << setw(25) << "NOMBRE" << setw(15) << "TIPO" << "\n";
+        file << string(40, '-') << "\n";
+        for (size_t i = 0; i < columnNames.size(); ++i) {
+            file << left << setw(25) << columnNames[i] 
+                 << setw(15) << dataTypeToString(columnTypes[i]) << "\n";
+        }
+        file << "\n";
+
+        // Sección 2: Estadísticas Rápidas (Solo numéricas)
+        file << "--- RESUMEN ESTADISTICO (Numerico) ---\n";
+        for (size_t i = 0; i < columnNames.size(); ++i) {
+            if (columnTypes[i] == DataType::INTEGER || columnTypes[i] == DataType::FLOAT) {
+                
+                // Recalcular rápido para el reporte
+                vector<double> vals;
+                for(const auto& row : data) if(row.isNumericColumn(i)) vals.push_back(row.getNumericValue(i));
+                
+                if(!vals.empty()) {
+                    double sum = accumulate(vals.begin(), vals.end(), 0.0);
+                    double mean = sum / vals.size();
+                    auto [minIt, maxIt] = minmax_element(vals.begin(), vals.end());
+                    
+                    file << "* Columna: " << columnNames[i] << "\n";
+                    file << "  - Promedio: " << mean << "\n";
+                    file << "  - Minimo:   " << *minIt << "\n";
+                    file << "  - Maximo:   " << *maxIt << "\n";
+                    file << "--------------------------------\n";
+                }
+            }
+        }
+
+        // Sección 3: Vista Previa de Datos
+        file << "\n--- VISTA PREVIA (Primeras 10 filas) ---\n";
+        // Headers
+        for (size_t i = 0; i < columnNames.size(); ++i) {
+            file << columnNames[i] << (i < columnNames.size()-1 ? "," : "");
+        }
+        file << "\n";
+        
+        // Rows
+        int limit = min((int)data.size(), 10);
+        for(int i = 0; i < limit; ++i) {
+             for(size_t c = 0; c < columnNames.size(); ++c) {
+                 file << data[i].getValueAsString(c) << (c < columnNames.size()-1 ? "," : "");
+             }
+             file << "\n";
+        }
+
+        cout << ">>> Reporte generado exitosamente: " << filename << endl;
+        file.close();
+    }
+
     // Method to print first few rows of data
     void printHead(int numRows = 5)
     {

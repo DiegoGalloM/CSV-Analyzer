@@ -22,31 +22,7 @@ public:
              << endl;
     }
 
-    void displayMainMenu()
-    {
-        cout << "\n+-------------------------------------+" << endl;
-        cout << "|             MAIN MENU               |" << endl;
-        cout << "+-------------------------------------+" << endl;
-        cout << "| 1. Load CSV File                    |" << endl;
-        cout << "| 2. View Data Information            |" << endl;
-        cout << "| 3. Statistical Analysis             |" << endl;
-        cout << "| 4. Data Operations                  |" << endl;
-        cout << "| 5. Export & Display Options         |" << endl;
-        cout << "| 0. Exit                             |" << endl;
-        cout << "+-------------------------------------+" << endl;
-
-        if (dataLoaded)
-        {
-            cout << " Current file: " << currentFile << endl;
-            cout << "" << analyzer.getRowCount() << " rows, "
-                 << analyzer.getColumnCount() << " columns loaded" << endl;
-        }
-        else
-        {
-            cout << "No data loaded. Please load a CSV file first." << endl;
-        }
-        cout << "\nSelect option: ";
-    }
+    
 
     void loadCSVFile()
     {
@@ -307,6 +283,12 @@ public:
                 break;
             case 5:
                 exportDisplayOptions();
+                break;
+            case 6:
+                handleHistogramOption();
+                break;
+            case 7:
+                handleExportOption();
                 break;
             case 0:
                 cout << "\n Thank you for using the Adaptive CSV Analysis System!" << endl;
@@ -692,6 +674,99 @@ private:
         cout << "\n"
              << string(60, '=') << endl;
         cout << "🎯 Report completed successfully!" << endl;
+    }
+
+    // =========================================================
+    // NUEVAS FUNCIONES DEL MENÚ (Parte 2)
+    // =========================================================
+
+    // Modifica esta función existente para agregar las nuevas opciones
+    void displayMainMenu()
+    {
+        cout << "\n+-------------------------------------+" << endl;
+        cout << "|             MAIN MENU               |" << endl;
+        cout << "+-------------------------------------+" << endl;
+        cout << "| 1. Load CSV File                    |" << endl;
+        cout << "| 2. View Data Information            |" << endl;
+        cout << "| 3. Statistical Analysis             |" << endl;
+        cout << "| 4. Data Operations                  |" << endl;
+        cout << "| 5. Export & Display Options         |" << endl;
+        // --- NUEVAS OPCIONES ---
+        cout << "| 6. Visualizar Histograma (ASCII)    |" << endl;
+        cout << "| 7. Exportar Reporte TXT             |" << endl;
+        // -----------------------
+        cout << "| 0. Exit                             |" << endl;
+        cout << "+-------------------------------------+" << endl;
+
+        if (dataLoaded)
+        {
+            cout << " Current file: " << currentFile << endl;
+        }
+        else
+        {
+            cout << " No file loaded." << endl;
+        }
+        cout << "\nSelect an option: ";
+    }
+
+    // Manejador para la Opción 6
+    void handleHistogramOption()
+    {
+        if (!dataLoaded) {
+            cout << "Please load a CSV file first (Option 1)." << endl;
+            return;
+        }
+
+        cout << "\n--- GENERAR HISTOGRAMA ---" << endl;
+        cout << "Columnas disponibles: " << endl;
+        
+        // Mostrar solo columnas numéricas como sugerencia
+        const auto& cols = analyzer.getColumnNames();
+        const auto& types = analyzer.getColumnTypes();
+        
+        for(size_t i=0; i<cols.size(); ++i) {
+            if (types[i] == DataType::INTEGER || types[i] == DataType::FLOAT) {
+                cout << " - " << cols[i] << endl;
+            }
+        }
+
+        cout << "\nIngrese el nombre exacto de la columna a graficar: ";
+        string colName;
+        // Limpieza de buffer por si acaso
+        cin >> ws; 
+        getline(cin, colName);
+
+        // Llamamos a la función que creamos en Analisis.h
+        // Puedes ajustar los 'bins' (barras) aquí, por defecto 10
+        analyzer.plotHistogram(colName, 15); 
+        
+        cout << "\nPresione Enter para continuar...";
+        cin.get();
+    }
+
+    // Manejador para la Opción 7
+    void handleExportOption()
+    {
+        if (!dataLoaded) {
+            cout << "Please load a CSV file first (Option 1)." << endl;
+            return;
+        }
+
+        cout << "\n--- EXPORTAR REPORTE ---" << endl;
+        cout << "Ingrese el nombre del archivo de salida (ej. reporte.txt): ";
+        string filename;
+        cin >> ws;
+        getline(cin, filename);
+
+        // Validación simple de extensión
+        if (filename.find(".txt") == string::npos) {
+            filename += ".txt";
+        }
+
+        analyzer.exportReportTXT(filename);
+        
+        cout << "\nPresione Enter para continuar...";
+        cin.get();
     }
 };
 
